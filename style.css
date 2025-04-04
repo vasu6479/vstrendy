@@ -285,3 +285,38 @@ h2 {
         font-size: 0.9rem;
     }
 }
+@media (max-width: 992px) {
+    .navbar ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        text-align: center;
+    }
+
+    .navbar ul.show {
+        display: flex;
+    }
+
+    .navbar ul li {
+        padding: 10px;
+        border-bottom: 1px solid white;
+    }
+
+    .navbar ul li:last-child {
+        border-bottom: none;
+    }
+
+    /* 🔥 Fix: Hamburger Icon */
+    .hamburger {
+        display: block;
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
+        margin-left: auto;
+        z-index: 1000; /* Ensure it appears above other elements */
+    }
+}
