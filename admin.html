@@ -129,33 +129,32 @@
 
         // Load Users
         function loadUsers() {
-            let userTable = document.getElementById("userTable");
-            userTable.innerHTML = "";
+    let userTable = document.getElementById("userTable");
+    userTable.innerHTML = "";
 
-            let usersData = JSON.parse(localStorage.getItem("users")) || {};
-            let users = Array.isArray(usersData) ? usersData : Object.values(usersData);
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-            if (users.length === 0) {
-                userTable.innerHTML = `<tr><td colspan="7">No users found</td></tr>`;
-                return;
-            }
+    if (!Array.isArray(users) || users.length === 0) {
+        userTable.innerHTML = `<tr><td colspan="7">No users found</td></tr>`;
+        return;
+    }
 
-            users.forEach((user, index) => {
-                userTable.innerHTML += `
-                    <tr>
-                        <td>${user.email || "N/A"}</td>
-                        <td>${user.phone || "N/A"}</td>
-                        <td>${user.address || "N/A"}</td>
-                        <td>${user.zip || "N/A"}</td>
-                        <td>${user.state || "N/A"}</td>
-                        <td>${user.city || "N/A"}</td>
-                        <td>
-                            <button onclick="deleteUser('${user.email}')">Delete</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
+    users.forEach((user, index) => {
+        userTable.innerHTML += `
+            <tr>
+                <td>${user.email || "N/A"}</td>
+                <td>${user.phone || "N/A"}</td>
+                <td>${user.address || "N/A"}</td>
+                <td>${user.zip || "N/A"}</td>
+                <td>${user.state || "N/A"}</td>
+                <td>${user.city || "N/A"}</td>
+                <td>
+                    <button onclick="deleteUser(${index})">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+}
 
         // Delete User
         function deleteUser(email) {
@@ -166,18 +165,37 @@
         }
 
         // Load Orders
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-users.push({
-  email: "abc@gmail.com",
-  phone: "1234567890",
-  address: "Some Street",
-  zip: "395001",
-  state: "Gujarat",
-  city: "Surat",
-  password: "abc123"
-});
-localStorage.setItem("users", JSON.stringify(users));
+        function loadOrders() {
+            let orderTable = document.getElementById("orderTable");
+            orderTable.innerHTML = "";
 
+            let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+            if (orders.length === 0) {
+                orderTable.innerHTML = `<tr><td colspan="8">No orders found</td></tr>`;
+                return;
+            }
+
+            orders.forEach((order, index) => {
+                let productDetails = order.product ? order.product.name : "No product details";
+                let price = order.product ? `₹${order.product.price}` : "N/A";
+
+                orderTable.innerHTML += `
+                    <tr>
+                        <td>${order.orderID || "N/A"}</td>
+                        <td>${productDetails}</td>
+                        <td>${price}</td>
+                        <td>${order.email || "N/A"}</td>
+                        <td>${order.phone || "N/A"}</td>
+                        <td>${order.address || "N/A"}</td>
+                        <td>${order.status || "Pending"}</td>
+                        <td>
+                            <button onclick="cancelOrder(${index})">Cancel</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
 
         // Cancel Order
         function cancelOrder(index) {
