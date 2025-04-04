@@ -166,37 +166,18 @@
         }
 
         // Load Orders
-        function loadOrders() {
-            let orderTable = document.getElementById("orderTable");
-            orderTable.innerHTML = "";
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+users.push({
+  email: "abc@gmail.com",
+  phone: "1234567890",
+  address: "Some Street",
+  zip: "395001",
+  state: "Gujarat",
+  city: "Surat",
+  password: "abc123"
+});
+localStorage.setItem("users", JSON.stringify(users));
 
-            let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-            if (orders.length === 0) {
-                orderTable.innerHTML = `<tr><td colspan="8">No orders found</td></tr>`;
-                return;
-            }
-
-            orders.forEach((order, index) => {
-                let productDetails = order.product ? order.product.name : "No product details";
-                let price = order.product ? `₹${order.product.price}` : "N/A";
-
-                orderTable.innerHTML += `
-                    <tr>
-                        <td>${order.orderID || "N/A"}</td>
-                        <td>${productDetails}</td>
-                        <td>${price}</td>
-                        <td>${order.email || "N/A"}</td>
-                        <td>${order.phone || "N/A"}</td>
-                        <td>${order.address || "N/A"}</td>
-                        <td>${order.status || "Pending"}</td>
-                        <td>
-                            <button onclick="cancelOrder(${index})">Cancel</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
 
         // Cancel Order
         function cancelOrder(index) {
