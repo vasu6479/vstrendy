@@ -228,9 +228,7 @@
     let globalOrders = JSON.parse(localStorage.getItem("orders")) || [];
 globalOrders.push(order);
 localStorage.setItem("orders", JSON.stringify(globalOrders));
-  users.push({ email, password, phone, address, zip, state, city });
-    localStorage.setItem("users", JSON.stringify(users));
-
+ 
     // ✅ Store user credentials correctly
    let users = JSON.parse(localStorage.getItem("users")) || {};
 users[email] = {
