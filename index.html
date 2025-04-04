@@ -95,162 +95,46 @@
         transform: rotate(-10deg) translateY(-5px);
     }
 </style>
-    <div class="shop-container" id="shopContainer"></div>
-
-    <script>
-        function getStoredProducts() {
-            return JSON.parse(localStorage.getItem("products")) || [];
-        }
-
-        const hardcodedProducts = [
-            { id: 1, name: "Male V Neck T-Shirt", image: "white.png", category: "men", material: "cotton", price: 286 },
-            { id: 2, name: "Male Sweatshirt", image: "pink.png", category: "men", material: "cotton", price: 440 },
-            { id: 3, name: "Male Hoodie", image: "41_Front.png", category: "men", material: "cotton", price: 540 },
-            { id: 4, name: "Male Joggers", image:"3_LeftPocket.png", category: "men", material: "cotton", price: 285 },
-            { id: 5, name: "Raglan T-shirt", image: "23_Front.png", category: "women", material: "cotton", price: 280 },
-            { id: 6, name: "Woman Hoodie", image: "49_Front.png", category: "women", material: "cotton", price: 540 },
-            { id: 7, name: "Woman Sweatshirt", image: "53_Front.png", category: "women", material: "cotton", price: 285 },
-            { id: 8, name: "woman Joggers", image: "2_LeftPocket.png", category: "women", material: "cotton", price: 465 },
-            { id: 9, name: "woman Shorts", image: "49_LeftPocket2.png", category: "women", material: "cotton", price: 390 },
-            
-        ];
-
-        function loadProducts(filter = "all", material = "all", sort = "default") {
-            let container = document.getElementById("shopContainer");
-            container.innerHTML = "";
-
-            let products = [...hardcodedProducts, ...getStoredProducts()];
-
-            if (filter !== "all") products = products.filter(p => p.category === filter);
-            if (material !== "all") products = products.filter(p => p.material === material);
-            if (sort === "low-high") products.sort((a, b) => a.price - b.price);
-            if (sort === "high-low") products.sort((a, b) => b.price - a.price);
-
-            products.forEach(p => {
-                container.innerHTML += `
-                    <div class="product" onclick="openProductPage(${p.id})">
-                        <img src="${p.image}" alt="${p.name}">
-                        <h3>${p.name}</h3>
-                        <p>₹${p.price}</p>
-                        <button class="btn">Add to Cart</button>
-                        <button class="btn">Buy Now</button>
-                    </div>
-                `;
-            });
-        }
-
-        function openProductPage(productId) {
-            window.location.href = `product.html?id=${productId}`;
-        }
-
-        document.getElementById("categoryFilter").addEventListener("change", function() {
-            loadProducts(this.value, document.getElementById("materialFilter").value, document.getElementById("priceSort").value);
-        });
-
-        window.onload = () => loadProducts("all", "all", "default");
-    </script>
-
-
-<script>
-    // Smooth Animated Background (Luxury Floating Particles)
-    const canvas = document.getElementById('backgroundCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray = [];
-
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 5 + 1;
-            this.speedX = Math.random() * 3 - 1.5;
-            this.speedY = Math.random() * 3 - 1.5;
-        }
-
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-
-            if (this.x <= 0 || this.x >= canvas.width) this.speedX *= -1;
-            if (this.y <= 0 || this.y >= canvas.height) this.speedY *= -1;
-        }
-
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = "rgba(255, 0, 0, 0.6)";
-            ctx.fill();
-        }
-    }
-
-    function initParticles() {
-        particlesArray = [];
-        for (let i = 0; i < 60; i++) {
-            particlesArray.push(new Particle());
-        }
-    }
-
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particlesArray.forEach(particle => {
-            particle.update();
-            particle.draw();
-        });
-        requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    // Responsive Canvas
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initParticles();
-    });
-
-</script>
+    
 <!-- Trending Products Section -->
 <section id="trending" class="trending-section">
     <h2 class="section-title">Trending Now</h2>
     <div class="product-container">
         <div class="product">
             
-            <img src="images/vs sd.png" alt="T shirt Black">
-            <h3>Black T-Shirt Men</h3>
-            <p>₹499</p>
+            <img src="white.png" alt="T shirt ">
+            <h3>Male V Neck T-Shirt</h3>
+            <p>₹286</p>
             <button>Add to Cart</button>
         </div>
         <div class="product">
-            <img src="images/3222.jpg" alt="Hoodie">
-            <h3>Casual Hoodie</h3>
-            <p>₹599</p>
+            <img src="pink.png" alt="">
+            <h3>Male Sweatshirt</h3>
+            <p>₹440</p>
             <button>Add to Cart</button>
         </div>
         <div class="product">
-            <img src="images/product3.png" alt="Product 3">
-            <h3>Fashionable Jacket</h3>
-            <p>₹699</p>
+            <img src="41_Front.png" alt="hoodie">
+            <h3>Male Hoodie</h3>
+            <p>₹540</p>
             <button>Add to Cart</button>
         </div>
         <div class="product">
-            <img src="images/product1.png" alt="Product 1">
-            <h3>Stylish Sneakers</h3>
-            <p>₹499</p>
+            <img src="49_Front.png" alt="">
+            <h3>Woman Hoodie</h3>
+            <p>₹540</p>
             <button>Add to Cart</button>
         </div>
         <div class="product">
-            <img src="images/product1.png" alt="Product 1">
-            <h3>Stylish Sneakers</h3>
-            <p>₹499</p>
+            <img src="2_LeftPocket.png" alt="Product 1">
+            <h3>woman Joggers</h3>
+            <p>₹465</p>
             <button>Add to Cart</button>
         </div>
         <div class="product">
-            <img src="images/product1.png" alt="Product 1">
-            <h3>Stylish Sneakers</h3>
-            <p>₹499</p>
+            <img src="3_LeftPocket.png" alt="Product 1">
+            <h3>man Joggers</h3>
+            <p>₹285</p>
             <button>Add to Cart</button>
         </div>
 
@@ -262,56 +146,26 @@
     <h2 class="section-title">Sale</h2>
     <div class="product-container">
         <div class="product">
-            <img src="images/sale1.png" alt="Sale Item 1">
-            <h3>Discounted Hoodie</h3>
-            <p><span class="old-price">899</span> 599</p>
+            <img src="2_LeftPocket.png" alt="Sale Item 1">
+            <h3>woman Joggers</h3>
+            <p><span class="old-price">650</span> 465</p>
             <button>Add to Cart</button>
         </div>
         <div class="product">
-            <img src="images/sale2.png" alt="Sale Item 2">
-            <h3>Denim Jeans</h3>
-            <p><span class="old-price">699</span> 599</p>
+            <img src="53_Front.png" alt="Sale Item 2">
+            <h3>Woman Sweatshirt</h3>
+            <p><span class="old-price">399</span> 285</p>
             <button>Add to Cart</button>
         </div>
         <div class="product">
-            <img src="images/sale2.png" alt="Sale Item 2">
-            <h3>Denim Jeans</h3>
-            <p><span class="old-price">699</span> 599</p>
+            <img src="41_Front.png" alt="Sale Item 2">
+            <h3>Hoodie</h3>
+            <p><span class="old-price">699</span> 540</p>
             <button>Add to Cart</button>
         </div>
         
-        <div class="product">
-            <img src="images/sale2.png" alt="Sale Item 2">
-            <h3>Denim Jeans</h3>
-            <p><span class="old-price">699</span> 599</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product">
-            <img src="images/sale2.png" alt="Sale Item 2">
-            <h3>Denim Jeans</h3>
-            <p><span class="old-price">699</span> 599</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product">
-            <img src="images/sale2.png" alt="Sale Item 2">
-            <h3>Denim Jeans</h3>
-            <p><span class="old-price">699</span> 599</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product">
-            <img src="images/sale2.png" alt="Sale Item 2">
-            <h3>Denim Jeans</h3>
-            <p><span class="old-price">699</span> 599</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product">
-            <img src="images/sale2.png" alt="Sale Item 2">
-            <h3>Denim Jeans</h3>
-            <p><span class="old-price">699</span> 599</p>
-            <button>Add to Cart</button>
-        </div>
         
-    </div>
+      
     <a href="#all-sale" class="view-all-btn">View All Sale Products</a>
 </section>
 
@@ -334,7 +188,7 @@
 <div id="productModal" class="modal">
     <div class="modal-content">
         <span id="closeModal" class="close">&times;</span>
-        <img id="modalImage" src="" alt="Product Image">
+        <img id="modalImage" src="41_Front.png" alt="Product Image">
     </div>
 </div>
 
