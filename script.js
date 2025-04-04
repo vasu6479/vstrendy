@@ -1,9 +1,12 @@
-function moveSmoke(event) {
-    const smoke = document.getElementById("smoke");
-    smoke.style.opacity = 1;
-    smoke.style.left = `${event.clientX - 150}px`;
-    smoke.style.top = `${event.clientY - 150}px`;
-}
-function hideSmoke() {
-    document.getElementById("smoke").style.opacity = 0;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const menu = document.querySelector(".navbar ul");
+    const hamburger = document.createElement("div");
+    hamburger.classList.add("hamburger");
+    hamburger.innerHTML = "☰";
+    
+    document.querySelector(".navbar").appendChild(hamburger);
+
+    hamburger.addEventListener("click", function () {
+        menu.classList.toggle("show");
+    });
+});
