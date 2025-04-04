@@ -154,3 +154,134 @@ h2 {
 .category img:hover {
     transform: scale(1.1);
 }
+
+/* -------- RESPONSIVE STYLES -------- */
+@media (max-width: 1200px) {
+    .brand-name {
+        margin-right: 250px;
+    }
+}
+
+@media (max-width: 992px) {
+    .brand-name {
+        margin-right: 100px;
+        font-size: 1.3rem;
+    }
+
+    .navbar ul {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar ul.show {
+        display: flex;
+    }
+
+    .navbar ul li {
+        padding: 10px;
+        border-bottom: 1px solid white;
+    }
+
+    .navbar ul li:last-child {
+        border-bottom: none;
+    }
+
+    .hamburger {
+        display: block;
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+    #hero h1 {
+        font-size: 3rem;
+        padding: 5px 15px;
+    }
+
+    .button {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    .product-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .brand-name {
+        font-size: 1.2rem;
+        margin-right: 50px;
+    }
+
+    #hero {
+        padding: 50px 20px;
+        height: 80vh;
+    }
+
+    #hero h1 {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+
+    .category-container {
+        flex-direction: column;
+    }
+
+    .product {
+        width: 90%;
+    }
+
+    .footer {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 10px 20px;
+    }
+
+    .brand-name {
+        font-size: 1rem;
+        margin-right: 20px;
+    }
+
+    .hamburger {
+        font-size: 1.8rem;
+    }
+
+    #hero {
+        height: 70vh;
+    }
+
+    #hero h1 {
+        font-size: 2rem;
+    }
+
+    .button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+
+    .product-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product {
+        width: 100%;
+    }
+
+    .footer {
+        font-size: 0.9rem;
+    }
+}
