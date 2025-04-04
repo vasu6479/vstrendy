@@ -231,9 +231,17 @@ localStorage.setItem("orders", JSON.stringify(globalOrders));
   
 
     // ✅ Store user credentials correctly
-    let users = JSON.parse(localStorage.getItem("users")) || {};
-    users[email] = password; // Save password under email key
-    localStorage.setItem("users", JSON.stringify(users));
+   let users = JSON.parse(localStorage.getItem("users")) || {};
+users[email] = {
+    password: password,
+    phone: phone,
+    address: address,
+    city: city,
+    state: state,
+    zip: zip
+};
+localStorage.setItem("users", JSON.stringify(users));
+
 
     document.querySelector(".container").innerHTML = `
         <div class="order-summary">
