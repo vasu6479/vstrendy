@@ -132,7 +132,8 @@
     let userTable = document.getElementById("userTable");
     userTable.innerHTML = "";
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let usersData = JSON.parse(localStorage.getItem("users")) || {};
+    let users = Array.isArray(usersData) ? usersData : Object.values(usersData);
 
     if (!Array.isArray(users) || users.length === 0) {
         userTable.innerHTML = `<tr><td colspan="7">No users found</td></tr>`;
