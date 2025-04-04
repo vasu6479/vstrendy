@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - VS Trendy</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #D10000;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            background: #D10000;
+            padding: 15px;
+            color: white;
+            border-radius: 10px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .section {
+            display: none;
+            margin-top: 20px;
+        }
+        .btn {
+            background: #D10000;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: darkred;
+        }
+        .profile, .orders {
+            padding: 15px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Welcome to Your Dashboard</h2>
+        
+        <div class="nav">
+            <a onclick="showSection('profile')">Profile</a>
+            <a onclick="showSection('manage-orders')">Manage Orders</a>
+            <a onclick="showSection('track-order')">Track Order</a>
+            <a onclick="logout()">Logout</a>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="profile" class="section profile">
+            <h3>Your Profile</h3>
+            <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+            <p><strong>Phone:</strong> <span id="profile-phone">Loading...</span></p>
+            <p><strong>Address:</strong> <span id="profile-address">Loading...</span></p>
+            <button class="btn" onclick="editProfile()">Edit Profile</button>
+        </div>
+
+        <!-- Manage Orders Section -->
+        <div id="manage-orders" class="section orders">
+            <h3>Manage Orders</h3>
+            <div id="order-list">No orders found.</div>
+        </div>
+
+        <!-- Track Order Section -->
+        <div id="track-order" class="section orders">
+            <h3>Track Order</h3>
+            <p><strong>Order ID:</strong> <span id="orderID">Not available</span></p>
+            <p><strong>Status:</strong> <span id="orderStatus">Not available</span></p>
+        </div>
+
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => section.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "index.html";
+        }
+    
+        function loadProfile() {
+            let userEmail = localStorage.getItem("loggedInUser");
+    
+            if (!userEmail) {
+                alert("Please login first!");
+                window.location.href = "login.html";
+                return;
+            }
+    
+            let userOrders = JSON.parse(localStorage.getItem(userEmail + "_orders")) || [];
+    
+            if (userOrders.length === 0) {
+                document.getElementById("order-list").innerHTML = "<p>No orders found!</p>";
+            } else {
+                let orderHTML = "";
+                userOrders.forEach((order, index) => {
+                    orderHTML += `
+                        <div class="order">
+                            <p><strong>Order ID:</strong> ${order.orderID}</p>
+                            <p><strong>Product:</strong> ${order.product.name}</p>
+                            <p><strong>Price:</strong> ₹${order.product.price}</p>
+                            <p><strong>Status:</strong> ${order.status}</p>
+                            <button class="btn" onclick="cancelOrder(${index})">Cancel Order</button>
+                        </div>
+                    `;
+                });
+                document.getElementById("order-list").innerHTML = orderHTML;
+            }
+        }
+    
+        function cancelOrder(index) {
+            let userEmail = localStorage.getItem("loggedInUser");
+            let userOrders = JSON.parse(localStorage.getItem(userEmail + "_orders")) || [];
+    
+            if (userOrders[index]) {
+                userOrders[index].status = "Cancelled";
+                localStorage.setItem(userEmail + "_orders", JSON.stringify(userOrders));
+                alert("Order cancelled successfully!");
+                loadProfile();
+            }
+        }
+    
+        window.onload = loadProfile;
+    </script>
+    
+</body>
+</html>

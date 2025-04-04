@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - VS Trendy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            color: #D10000;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+        th {
+            background-color: #D10000;
+            color: white;
+        }
+        button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: darkred;
+        }
+        .logout {
+            float: right;
+            background: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Admin Dashboard</h2>
+        <button class="logout" onclick="logout()">Logout</button>
+
+        <!-- User Management Section -->
+        <div class="section">
+            <h3>Manage Users</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Zip Code</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTable"></tbody>
+            </table>
+        </div>
+
+        <!-- Order Management Section -->
+        <div class="section">
+            <h3>Manage Orders</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Products</th>
+                        <th>Price</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTable"></tbody>
+            </table>
+        </div>
+
+        <!-- Product Management Section -->
+        <div class="section">
+            <h3>Manage Products</h3>
+            <button onclick="addProduct()">Add Product</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>SKU</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Logout Function
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "index.html";
+        }
+
+        // Load Users
+        function loadUsers() {
+            let userTable = document.getElementById("userTable");
+            userTable.innerHTML = "";
+
+            let usersData = JSON.parse(localStorage.getItem("users")) || {};
+            let users = Array.isArray(usersData) ? usersData : Object.values(usersData);
+
+            if (users.length === 0) {
+                userTable.innerHTML = `<tr><td colspan="7">No users found</td></tr>`;
+                return;
+            }
+
+            users.forEach((user, index) => {
+                userTable.innerHTML += `
+                    <tr>
+                        <td>${user.email || "N/A"}</td>
+                        <td>${user.phone || "N/A"}</td>
+                        <td>${user.address || "N/A"}</td>
+                        <td>${user.zip || "N/A"}</td>
+                        <td>${user.state || "N/A"}</td>
+                        <td>${user.city || "N/A"}</td>
+                        <td>
+                            <button onclick="deleteUser('${user.email}')">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Delete User
+        function deleteUser(email) {
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            users = users.filter(user => user.email !== email);
+            localStorage.setItem("users", JSON.stringify(users));
+            loadUsers();
+        }
+
+        // Load Orders
+        function loadOrders() {
+            let orderTable = document.getElementById("orderTable");
+            orderTable.innerHTML = "";
+
+            let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+            if (orders.length === 0) {
+                orderTable.innerHTML = `<tr><td colspan="8">No orders found</td></tr>`;
+                return;
+            }
+
+            orders.forEach((order, index) => {
+                let productDetails = order.product ? order.product.name : "No product details";
+                let price = order.product ? `₹${order.product.price}` : "N/A";
+
+                orderTable.innerHTML += `
+                    <tr>
+                        <td>${order.orderID || "N/A"}</td>
+                        <td>${productDetails}</td>
+                        <td>${price}</td>
+                        <td>${order.email || "N/A"}</td>
+                        <td>${order.phone || "N/A"}</td>
+                        <td>${order.address || "N/A"}</td>
+                        <td>${order.status || "Pending"}</td>
+                        <td>
+                            <button onclick="cancelOrder(${index})">Cancel</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Cancel Order
+        function cancelOrder(index) {
+            let orders = JSON.parse(localStorage.getItem("orders")) || [];
+            orders.splice(index, 1);
+            localStorage.setItem("orders", JSON.stringify(orders));
+            loadOrders();
+        }
+
+        // Load Products
+        function loadProducts() {
+            let productTable = document.getElementById("productTable");
+            productTable.innerHTML = "";
+            let products = JSON.parse(localStorage.getItem("products")) || [];
+
+            if (products.length === 0) {
+                productTable.innerHTML = `<tr><td colspan="4">No products available</td></tr>`;
+                return;
+            }
+
+            products.forEach((product, index) => {
+                productTable.innerHTML += `
+                    <tr>
+                        <td>${product.name || "N/A"}</td>
+                        <td>₹${product.price || "N/A"}</td>
+                        <td>${product.sku || "N/A"}</td>
+                        <td>
+                            <button onclick="removeProduct(${index})">Remove</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Add Product
+        function addProduct() {
+            let name = prompt("Enter product name:");
+            let price = prompt("Enter product price:");
+            let sku = prompt("Enter product SKU:");
+
+            if (name && price && sku) {
+                let products = JSON.parse(localStorage.getItem("products")) || [];
+                products.push({ name, price, sku });
+                localStorage.setItem("products", JSON.stringify(products));
+                loadProducts();
+            }
+        }
+
+        // Remove Product
+        function removeProduct(index) {
+            let products = JSON.parse(localStorage.getItem("products"));
+            products.splice(index, 1);
+            localStorage.setItem("products", JSON.stringify(products));
+            loadProducts();
+        }
+
+        // Load all data when page loads
+        window.onload = function() {
+            loadUsers();
+            loadOrders();
+            loadProducts();
+        };
+    </script>
+
+</body>
+</html>

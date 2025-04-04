@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - VS Trendy</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 60%;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 20px;
+        }
+        .left, .right {
+            flex: 1;
+        }
+        h2 {
+            text-align: center;
+            color: #D10000;
+        }
+        .product-summary {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #fff;
+        }
+        .product-summary img {
+            width: 150px;
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            background: #D10000;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: darkred;
+        }
+        .upi-details {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .upi-details img {
+            width: 200px;
+            margin-top: 10px;
+        }
+        .order-summary {
+            text-align: center;
+            padding: 20px;
+        }
+        .order-summary img {
+            width: 120px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="left">
+            <div class="product-summary" id="product-summary">
+                <h3>Product Details</h3>
+                <img id="product-image" src="" alt="Product">
+                <p><strong>Name:</strong> <span id="product-name"></span></p>
+                <p><strong>Price:</strong> ₹<span id="product-price"></span></p>
+            </div>
+        </div>
+
+        <div class="right">
+            <h2>Checkout</h2>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" id="address" required>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="city" required>
+                </div>
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" id="state" required>
+                </div>
+                <div class="form-group">
+                    <label>Zip Code</label>
+                    <input type="text" id="zip" required>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="payment">
+                        <option value="COD">Cash on Delivery (COD)</option>
+                        <option value="UPI">UPI Payment</option>
+                    </select>
+                </div>
+                <div class="upi-details" id="upi-details">
+                    <h4>Scan & Pay</h4>
+                    <img src="upi_qr_code.png" alt="UPI QR Code">
+                    <p>UPI ID: <strong>your-upi-id@upi</strong></p>
+                    <label>Enter UPI Transaction ID:</label>
+                    <input type="text" id="upi-transaction-id">
+                </div>
+                <button type="button" class="btn" id="placeOrderBtn">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+        if (selectedProduct) {
+            document.getElementById("product-image").src = selectedProduct.image;
+            document.getElementById("product-name").textContent = selectedProduct.name;
+            document.getElementById("product-price").textContent = selectedProduct.price;
+        } else {
+            alert("No product selected! Redirecting to shop.");
+            window.location.href = "shop.html";
+        }
+
+        document.getElementById("payment").addEventListener("change", function () {
+            if (this.value === "UPI") {
+                document.getElementById("upi-details").style.display = "block";
+            } else {
+                document.getElementById("upi-details").style.display = "none";
+            }
+        });
+        document.getElementById("placeOrderBtn").addEventListener("click", function () {
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let address = document.getElementById("address").value.trim();
+    let city = document.getElementById("city").value.trim();
+    let state = document.getElementById("state").value.trim();
+    let zip = document.getElementById("zip").value.trim();
+    let payment = document.getElementById("payment").value.trim();
+
+    // ✅ Email validation
+    let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    // ✅ Phone number validation (10 digits)
+    let phonePattern = /^[6-9]\d{9}$/;
+    if (!phonePattern.test(phone)) {
+        alert("Please enter a valid 10-digit phone number.");
+        return;
+    }
+
+    // ✅ ZIP code validation (6 digits, India format)
+    let zipPattern = /^\d{6}$/;
+    if (!zipPattern.test(zip)) {
+        alert("Please enter a valid 6-digit ZIP code.");
+        return;
+    }
+
+    // ✅ Check if all fields are filled
+    if (!email || !password || !phone || !address || !city || !state || !zip) {
+        alert("Please fill in all the required fields.");
+        return;
+    }
+
+    // ✅ If UPI is selected, make UPI transaction ID required
+    if (payment === "UPI") {
+        let upiTransactionID = document.getElementById("upi-transaction-id").value.trim();
+        if (!upiTransactionID) {
+            alert("Please enter the UPI transaction ID after payment.");
+            return;
+        }
+    }
+
+    let orderID = "VS-" + Math.floor(100000 + Math.random() * 900000);
+    let selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+
+    let order = {
+        orderID: orderID,
+        product: selectedProduct,
+        paymentMethod: payment,
+        status: "Processing"
+    };
+
+    // ✅ Save orders under the user's email
+    let orders = JSON.parse(localStorage.getItem(email + "_orders")) || [];
+    orders.push(order);
+    localStorage.setItem(email + "_orders", JSON.stringify(orders));
+    let globalOrders = JSON.parse(localStorage.getItem("orders")) || [];
+globalOrders.push(order);
+localStorage.setItem("orders", JSON.stringify(globalOrders));
+  
+
+    // ✅ Store user credentials correctly
+    let users = JSON.parse(localStorage.getItem("users")) || {};
+    users[email] = password; // Save password under email key
+    localStorage.setItem("users", JSON.stringify(users));
+
+    document.querySelector(".container").innerHTML = `
+        <div class="order-summary">
+            <h2 style="color: green;">Order Successfully Placed!</h2>
+            <p><strong>Order ID:</strong> ${orderID}</p>
+            <img src="${selectedProduct.image}" alt="${selectedProduct.name}">
+            <p><strong>Product:</strong> ${selectedProduct.name}</p>
+            <p><strong>Payment Method:</strong> ${payment}</p>
+            <button class="btn" onclick="window.location.href='login.html'">Track Order</button>
+        </div>
+    `;
+});
+
+
+</script>
+</body>
+</html>

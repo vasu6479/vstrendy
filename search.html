@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | VS Trendy</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .logo {
+            height: 50px;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: #D10000;
+            font-weight: bold;
+        }
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #D10000;
+            margin-right: 450px;
+        }
+        .search-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .search-box {
+            width: 50%;
+            padding: 12px;
+            font-size: 1.2rem;
+            border: 2px solid #D10000;
+            border-radius: 50px;
+            outline: none;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .search-box:focus {
+            border-color: black;
+        }
+        .search-btn {
+            background: #D10000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .search-btn:hover {
+            background: black;
+        }
+        .search-results {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        .product {
+            width: 250px;
+            padding: 15px;
+            border: 2px solid #D10000;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .product:hover {
+            transform: scale(1.05);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product h3 {
+            color: black;
+            margin: 10px 0;
+        }
+        .product p {
+            color: #D10000;
+            font-weight: bold;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .add-cart { background: #D10000; color: white; }
+        .buy-now { background: black; color: white; }
+        .btn:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <img src="C:\Users\vinit\Desktop\VS BRAND\logo\Untitled-1.png" alt="VS Trendy Logo" class="logo">
+        <span class="brand-name">VS Trendy</span>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+            <li><a href="login.html">Login/Signup</a></li>
+        </ul>
+    </nav>
+
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="Search for products...">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="search-results">
+        <div class="product">
+            <img src="images/product1.png" alt="Product 1">
+            <h3>Stylish Sneakers</h3>
+            <p>₹499</p>
+            <div class="btn-container">
+                <button class="btn add-cart" onclick="addToCart('Stylish Sneakers', 499)">Add to Cart</button>
+                <button class="btn buy-now" onclick="buyNow('Stylish Sneakers', 499)">Buy Now</button>
+            </div>
+        </div>
+        <div class="product">
+            <img src="images/product2.png" alt="Product 2">
+            <h3>Casual T-Shirt</h3>
+            <p>₹399</p>
+            <div class="btn-container">
+                <button class="btn add-cart" onclick="addToCart('Casual T-Shirt', 399)">Add to Cart</button>
+                <button class="btn buy-now" onclick="buyNow('Casual T-Shirt', 399)">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addToCart(productName, price) {
+            alert(productName + " added to cart for ₹" + price);
+        }
+
+        function buyNow(productName, price) {
+            alert("Redirecting to checkout for " + productName + " (₹" + price + ")");
+            window.location.href = "checkout.html";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - VS Trendy</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #1a1a1a, #333);
+            color: white;
+            
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar .logo {
+            height: 50px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: red;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: black;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: red;
+            margin-right: 450px;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            width: 60%;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(255, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+        }
+
+        .contact-container h2 {
+            font-size: 2.5rem;
+            color: red;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .contact-container p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: 0.3s;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            background: rgba(255, 255, 255, 0.5);
+            outline: none;
+        }
+
+        .contact-form button {
+            background: red;
+            color: white;
+            padding: 12px;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .contact-form button:hover {
+            background: white;
+            color: red;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Contact Details */
+        .contact-info {
+            margin-top: 30px;
+            font-size: 1.2rem;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Chatbot */
+        .chatbot-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: red;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+            transition: 0.3s;
+        }
+
+        .chatbot-btn:hover {
+            background: black;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="C:\Users\vinit\Desktop\VS BRAND\logo\Untitled-1.png" alt="VS Trendy Logo" class="logo">
+        <span class="brand-name">VS Trendy</span>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+            <li><a href="login.html">Login/Signup</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contact Section -->
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <p>Have any questions? We'd love to hear from you!</p>
+
+        <form class="contact-form">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+
+        <div class="contact-info">
+            <p>📞 Phone: +91 98765 43210</p>
+            <p>📧 Email: support@vstrendy.com</p>
+            <p>📍 Address: VS Trendy HQ, Gujarat, India</p>
+        </div>
+    </div>
+
+    <!-- Chatbot Button -->
+    <div class="chatbot-btn">💬 Chat with Us</div>
+
+</body>
+</html>

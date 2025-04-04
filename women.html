@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Fashion - VS Trendy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            transition: background-size 0.5s ease-in-out;
+        }
+        
+        .container {
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            color: black;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+        
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .product {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 260px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .product h3 {
+            font-size: 1.5rem;
+            color: black;
+            margin: 10px 0;
+        }
+        
+        .product p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: red;
+        }
+        
+        .product button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        
+        .product button:hover {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="section-title">Women's Fashion</h2>
+        <div class="product-container">
+            <div class="product" onclick="openProduct('dress')">
+                <img src="images/dress.jpg" alt="Dress">
+                <h3>Elegant Dress</h3>
+                <p>₹499</p>
+            </div>
+            <div class="product" onclick="openProduct('top')">
+                <img src="images/top.jpg" alt="Top">
+                <h3>Stylish Top</h3>
+                <p>₹399</p>
+            </div>
+            <div class="product" onclick="openProduct('heels')">
+                <img src="images/heels.jpg" alt="Heels">
+                <h3>Trendy Heels</h3>
+                <p>₹499</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function openProduct(product) {
+            window.location.href = 'product.html?item=' + product;
+        }
+        
+        window.addEventListener("scroll", function () {
+            document.body.style.backgroundSize = "110%";
+            setTimeout(() => document.body.style.backgroundSize = "cover", 500);
+        });
+    </script>
+</body>
+</html>

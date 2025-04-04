@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .btn {
+            background: #D10000;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Order Confirmed ✅</h2>
+        <p>Your order <strong>#<span id="orderID"></span></strong> has been placed successfully.</p>
+        <p>We will deliver your product soon!</p>
+        <button class="btn" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+
+    <script>
+        let order = JSON.parse(localStorage.getItem("userOrder"));
+        if (order) {
+            document.getElementById("orderID").textContent = order.orderID;
+        } else {
+            document.querySelector(".container").innerHTML = "<h2>No Order Found!</h2>";
+        }
+    </script>
+
+</body>
+</html>

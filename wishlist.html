@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist | VS Trendy</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fff;
+           
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .logo {
+            height: 50px;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: #D10000;
+            font-weight: bold;
+        }
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #D10000;
+            margin-right: 450px;
+        }
+        .wishlist-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+            gap: 20px;
+        }
+        .product {
+            width: 250px;
+            padding: 15px;
+            border: 2px solid #D10000;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .product:hover {
+            transform: scale(1.05);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product h3 {
+            color: black;
+            margin: 10px 0;
+        }
+        .product p {
+            color: #D10000;
+            font-weight: bold;
+        }
+        .remove-btn {
+            background: #D10000;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .remove-btn:hover {
+            background: black;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <img src="C:\Users\vinit\Desktop\VS BRAND\logo\Untitled-1.png" alt="VS Trendy Logo" class="logo">
+        <span class="brand-name">VS Trendy</span>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+            <li><a href="login.html">Login/Signup</a></li>
+        </ul>
+    </nav>
+
+    <div class="wishlist-container">
+        <div class="product">
+            <img src="images/product1.png" alt="Product 1">
+            <h3>Stylish Sneakers</h3>
+            <p>₹499</p>
+            <button class="remove-btn">Remove</button>
+        </div>
+    </div>
+
+</body>
+</html>
