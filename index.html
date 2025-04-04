@@ -95,6 +95,61 @@
         transform: rotate(-10deg) translateY(-5px);
     }
 </style>
+    <div class="shop-container" id="shopContainer"></div>
+
+    <script>
+        function getStoredProducts() {
+            return JSON.parse(localStorage.getItem("products")) || [];
+        }
+
+        const hardcodedProducts = [
+            { id: 1, name: "Male V Neck T-Shirt", image: "white.png", category: "men", material: "cotton", price: 286 },
+            { id: 2, name: "Male Sweatshirt", image: "pink.png", category: "men", material: "cotton", price: 440 },
+            { id: 3, name: "Male Hoodie", image: "41_Front.png", category: "men", material: "cotton", price: 540 },
+            { id: 4, name: "Male Joggers", image:"3_LeftPocket.png", category: "men", material: "cotton", price: 285 },
+            { id: 5, name: "Raglan T-shirt", image: "23_Front.png", category: "women", material: "cotton", price: 280 },
+            { id: 6, name: "Woman Hoodie", image: "49_Front.png", category: "women", material: "cotton", price: 540 },
+            { id: 7, name: "Woman Sweatshirt", image: "53_Front.png", category: "women", material: "cotton", price: 285 },
+            { id: 8, name: "woman Joggers", image: "2_LeftPocket.png", category: "women", material: "cotton", price: 465 },
+            { id: 9, name: "woman Shorts", image: "49_LeftPocket2.png", category: "women", material: "cotton", price: 390 },
+            
+        ];
+
+        function loadProducts(filter = "all", material = "all", sort = "default") {
+            let container = document.getElementById("shopContainer");
+            container.innerHTML = "";
+
+            let products = [...hardcodedProducts, ...getStoredProducts()];
+
+            if (filter !== "all") products = products.filter(p => p.category === filter);
+            if (material !== "all") products = products.filter(p => p.material === material);
+            if (sort === "low-high") products.sort((a, b) => a.price - b.price);
+            if (sort === "high-low") products.sort((a, b) => b.price - a.price);
+
+            products.forEach(p => {
+                container.innerHTML += `
+                    <div class="product" onclick="openProductPage(${p.id})">
+                        <img src="${p.image}" alt="${p.name}">
+                        <h3>${p.name}</h3>
+                        <p>₹${p.price}</p>
+                        <button class="btn">Add to Cart</button>
+                        <button class="btn">Buy Now</button>
+                    </div>
+                `;
+            });
+        }
+
+        function openProductPage(productId) {
+            window.location.href = `product.html?id=${productId}`;
+        }
+
+        document.getElementById("categoryFilter").addEventListener("change", function() {
+            loadProducts(this.value, document.getElementById("materialFilter").value, document.getElementById("priceSort").value);
+        });
+
+        window.onload = () => loadProducts("all", "all", "default");
+    </script>
+
 
 <script>
     // Smooth Animated Background (Luxury Floating Particles)
