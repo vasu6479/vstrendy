@@ -320,3 +320,9 @@ h2 {
         z-index: 1000; /* Ensure it appears above other elements */
     }
 }
+@media (max-width: 768px) {
+   .contact-box, .checkout-form, .user-dashboard {
+      width: 90%;
+      margin: auto;
+   }
+}
